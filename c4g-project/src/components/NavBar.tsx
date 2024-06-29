@@ -1,48 +1,113 @@
-import React from 'react';
-import { Typography } from '@mui/material';
-import icon from '../images/icon.png';
-import placeholderName from '../images/placeholder_name.png';
-import Stack from '@mui/material/Stack';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import ButtonGroup from '@mui/material/ButtonGroup';
-import NavDrawer from './NavDrawer';
+import React from "react";
+import { Typography } from "@mui/material";
+import icon from "../images/icon.png";
+import placeholderName from "../images/placeholder_name.png";
+import Stack from "@mui/material/Stack";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import ButtonGroup from "@mui/material/ButtonGroup";
+import NavDrawer from "./NavDrawer";
 import { Link as RouterLink } from "react-router-dom";
-import './NavBar.css';
+import "./NavBar.css";
 
 export default function NavBar() {
-	return <Box className="nav" >
-		<NavDrawer/>
-		<Button disableRipple className="logo" sx={{
-			padding: "3px",
-			width: {
-				xs: "100px",
-				sm: "100px",
-				md: "120px",
-				lg: "140px",
-				xl: "160px",
-			},
-		}}><img src={placeholderName} alt="Name" style={{width: "100%", height: "auto", padding: "3px", maxWidth: "160px" }}></img></Button>
-		<ButtonGroup
-          style={{
-            border: "none",
-            borderRadius: "5px",
-            overflow: "hidden",
-			}}
-			className="nav-group"
+  return (
+    <Box
+      className="nav"
+      display="flex"
+      alignItems="center"
+      component="nav"
+      position="static"
+      flexDirection="row"
+      style={{ background: "transparent", width: "100%", height: "60px" }}
+    >
+      <NavDrawer />
+      <RouterLink
+        to="/"
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          textDecoration: "none",
+          height: "100%",
+        }}
+      >
+        <img
+          src={icon}
+          alt="Name"
+          style={{ height: "40px", marginRight: "20px", marginLeft: "10px" }}
+        />
+        <Typography className="nav-text" variant="h4" sx={{ my: 4 }}>
+          CompanyName
+        </Typography>
+      </RouterLink>
+      <Box
+        className="nav"
+        display="flex"
+        alignItems="center"
+        component="nav"
+        position="static"
+        flexDirection="row"
+        sx={{
+          marginLeft: "auto",
+          height: "60px",
+        }}
+      >
+        <Box
+          sx={{
+            display: {
+              xs: "none",
+              sm: "none",
+              md: "flex",
+              lg: "flex",
+              xl: "flex",
+            },
+          }}
         >
-			<Button disableRipple className="nav-button"><p className="navbar-text">Home</p></Button>
-				<Button disableRipple className="nav-button"><p className="navbar-text">Calendar</p></Button>
-			<Button disableRipple sx={{ padding: "3px",
-		width: {
-			xs: "40px",
-			sm: "40px",
-			md: "40px",
-			lg: "50px",
-			xl: "60px",
-		},
-			}}><img src={icon} className="profile-pic" alt="Profile"></img></Button>
-		</ButtonGroup >
-		</Box>
-			
+          <RouterLink
+            to="/"
+            style={{
+              textDecoration: "none",
+              color: "inherit",
+              border: "none",
+              marginRight: "130px",
+            }}
+          >
+            <Typography className="nav-text" variant="h5" sx={{ my: 5 }}>
+              Home
+            </Typography>
+          </RouterLink>
+          <RouterLink
+            to="/"
+            style={{
+              textDecoration: "none",
+              color: "inherit",
+              border: "none",
+              marginRight: "130px",
+            }}
+          >
+            <Typography className="nav-text" variant="h5" sx={{ my: 5 }}>
+              Calendar
+            </Typography>
+          </RouterLink>
+        </Box>
+        <RouterLink
+          to="/"
+          style={{
+            textDecoration: "none",
+            color: "inherit",
+            border: "none",
+            margin: 0,
+          }}
+        >
+          <img
+            src={icon}
+            style={{ height: "40px", marginRight: "10px", marginLeft: "10px" }}
+            className="profile-pic"
+            alt="Profile"
+          ></img>
+        </RouterLink>
+      </Box>
+    </Box>
+  );
 }
