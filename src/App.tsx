@@ -1,23 +1,21 @@
 import React from 'react';
+import logo from './logo.svg';
 import './App.css';
-import Header from './Components/Header';
-import Background from './Components/Background';
-import PageContent from './Components/PageContent';
-
-
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Login from './pages/SignUp';
+import Home from './pages/Home';
+import SignUp from './pages/SignUp';
 
 function App() {
-  return ( 
-    <>
-    <style>
-    @import url('https://fonts.googleapis.com/css2?family=Gaegu&display=swap');
-    </style>
-    <Background/>
-    <Header/>
-    <PageContent/>
-    </>
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/home" element={<Home />}></Route>
+        <Route path="/" element={<Login />}></Route>
+        <Route path="/signup" element={<SignUp />}></Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
 export default App;
-
