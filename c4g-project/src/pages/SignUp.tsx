@@ -6,7 +6,7 @@ import NavBar from "../components/NavBar";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 
-export default function Login() {
+export default function SignUp() {
   return (
     <Box
       className="login-page"
@@ -140,9 +140,9 @@ export default function Login() {
                   margin: "10px",
                 }}
               >
-                Login
+                Sign up
               </Button>
-              <Typography>Or Sign Up</Typography>
+              <Typography>Or Login</Typography>
             </Box>
           </Box>
         </Box>

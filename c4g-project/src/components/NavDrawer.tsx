@@ -24,7 +24,7 @@ export default function NavDrawer() {
 
   const DrawerList = (
     <Box
-      sx={{ width: 250 }}
+      sx={{ width: 250,backgroundColor: "#01496D" }}
       role="presentation"
       onClick={toggleDrawer(false)}
       className="nav-list"
@@ -65,8 +65,9 @@ export default function NavDrawer() {
       </Button>
       <Drawer
         open={open}
+        anchor={'right'}
         onClose={toggleDrawer(false)}
-        sx={{ "& .MuiDrawer-paper": { backgroundColor: "#6291D8" } }}
+        sx={{ "& .MuiDrawer-paper": { backgroundColor: "#01496D" } }}
       >
         {DrawerList}
       </Drawer>
