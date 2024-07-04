@@ -6,7 +6,7 @@ import PageContent from '../Components/PageContent';
 
 
 
-function Home() {
+export default function Home() {
   return ( 
     <>
     <style>
@@ -18,5 +18,3 @@ function Home() {
     </>
   );
 }
-
-export default Home;
