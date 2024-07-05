@@ -1,6 +1,7 @@
 import React from 'react'
 import "./Header.css"
 import {Link} from 'react-router-dom';
+import logo from "../assets/image.png"
 
 export default function Header() {
   return (
@@ -12,6 +13,7 @@ export default function Header() {
           <Link to={"https://www.youtube.com"}>
           Eventide
           </Link>
+          {/*<img src={logo} alt="logo" style="width:50px;height:100px;"></img>*/}
       </span>
       <span>   <a href="https://www.google.com" target="_self">IDK</a>     </span>
       <span>   <a href="https://www.google.com" target="_self">IDK</a>     </span>
