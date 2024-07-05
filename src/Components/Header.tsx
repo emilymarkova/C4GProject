@@ -1,12 +1,18 @@
 import React from 'react'
 import "./Header.css"
+import {Link} from 'react-router-dom';
 
 export default function Header() {
   return (
     <>
     <div className="headerTop"><br/></div>
     <div className="App-header">
-      <span>Eventide</span>
+      <span
+        style={{textShadow: "0 0 7px #97bffb,0 0 10px #97bffb,0 0 21px #97bffb,0 0 42px #97bffb,0 0 84px #97bffb"}}>
+          <Link to={"https://www.youtube.com"}>
+          Eventide
+          </Link>
+      </span>
       <span>   <a href="https://www.google.com" target="_self">IDK</a>     </span>
       <span>   <a href="https://www.google.com" target="_self">IDK</a>     </span>
       <span>   <a href="https://www.google.com">About</a>   </span>

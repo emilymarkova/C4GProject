@@ -14,16 +14,24 @@ export default function PageContent() {
         </br>
         impact on student’s education.
     </div>
-    <div>
+
+    <div
+      className="button1">
     <Button
       variant="contained"
       component={Link}
+      style={{minWidth: 200, minHeight: 100}}
       to={'/signup'}>
         Sign Up!
     </Button>
+    </div>
+
+    <div
+      className="button2">
     <Button
       variant = "contained"
       component={Link}
+      style={{minWidth:200, minHeight: 100}}
       to={'/signup'}>
         Login!
     </Button>
