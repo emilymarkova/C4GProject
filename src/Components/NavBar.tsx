@@ -17,8 +17,8 @@ import Link from '@mui/material/Link';
 
 import "./NavBar.css";
 
-const pages = ["Calendar", "FRQ", "Home"];
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+const pages = [["Calendar","/login"], ["FRQ","/"], ["Home","/home"]];
+const settings = [["Account","/account"], ["Logout","/"]];
 
 function NavBar() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
@@ -44,6 +44,10 @@ function NavBar() {
   };
 
   return (
+    <>
+      <style>
+    @import url('https://fonts.googleapis.com/css2?family=Gaegu&display=swap');
+    </style>
     <AppBar
       position="fixed"
       sx={{
@@ -53,10 +57,17 @@ function NavBar() {
         boxShadow: "none",
         margin: 0,
       }}
+      className="navBar"
     >
       <Box sx={{ mr: "10px", ml: "10px" }}>
-				<Toolbar disableGutters>
-				<Link href={"/home"} sx={{display:"flex"}}>
+          <Toolbar disableGutters>
+            <Box sx={{textAlign: "center",
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent:"center",
+}}>
+				{/* <Link href={"/home"} sx={{display:"flex"}}> */}
 					
           <AdbIcon
             sx={{
@@ -72,10 +83,11 @@ function NavBar() {
 						/>
 					
           <Typography
-            variant="h6"
+            variant="h4"
             noWrap
+            className="navBar"
             component="a"
-            href="#app-bar-with-responsive-menu"
+            // href="#app-bar-with-responsive-menu"
             sx={{
               mr: 2,
               display: {
@@ -85,16 +97,17 @@ function NavBar() {
                 lg: "flex",
                 xl: "flex",
               },
-              fontFamily: "monospace",
               fontWeight: 700,
               letterSpacing: ".3rem",
-              color: "inherit",
               textDecoration: "none",
+              fontFamily: 'Gaegu',
+              color: "#B2DBD7 !important",
             }}
           >
-            LOGO
+            Eventide
           </Typography>
-					</Link>
+					{/* </Link> */}
+          </Box>
 
           <Box
             sx={{
@@ -109,7 +122,7 @@ function NavBar() {
             }}
           >
             <IconButton
-              size="large"
+              size="medium"
               aria-label="account of current user"
               aria-controls="menu-appbar"
               aria-haspopup="true"
@@ -140,15 +153,20 @@ function NavBar() {
                   lg: "none",
                   xl: "none",
                 },
+                "& .MuiPaper-root": {
+                  backgroundColor: "#457AA0"
+                }
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
+                <MenuItem key={page[0]} onClick={handleCloseNavMenu}>
                   <Typography
+                    variant="h6"
                     textAlign="center"
-                    sx={{ textDecoration: "none", textTransform: "capitalize" }}
+                    className="navBar"
+                    sx={{ textDecoration: "none", textTransform: "capitalize", fontFamily: 'Gaegu' }}
                   >
-                    {page}
+                    {page[0]}
                   </Typography>
                 </MenuItem>
               ))}
@@ -168,9 +186,10 @@ function NavBar() {
           />
           <Typography
             variant="h5"
+            className="navBar"
             noWrap
             component="a"
-            href="#app-bar-with-responsive-menu"
+            // href="#app-bar-with-responsive-menu"
             sx={{
               mr: 2,
               display: {
@@ -181,14 +200,14 @@ function NavBar() {
                 xl: "none",
               },
               flexGrow: 1,
-              fontFamily: "monospace",
+              fontFamily: 'Gaegu',
               fontWeight: 700,
               letterSpacing: ".3rem",
-              color: "inherit",
+              color: "#B2DBD7 !important",
               textDecoration: "none",
             }}
           >
-            Logo
+            Eventide
           </Typography>
           <Box
             sx={{
@@ -204,31 +223,38 @@ function NavBar() {
           >
             {pages.map((page) => (
               <Button
-                key={page}
-                className="nav-button"
+                key={page[0]}
+                component={RouterLink}
+                to={page[1]}
+                className="nav-button navBar"
                 disableRipple
                 onClick={handleCloseNavMenu}
                 sx={{
-                  my: 2,
-                  color: "white",
+                  mr: 5,
+                  mx: 5,
+                  color: "#B2DBD7 !important",
                   display: "block",
                   textDecoration: "none",
                   textTransform: "capitalize",
+                  fontFamily: 'Gaegu',
+                  fontSize:'25px',
                 }}
               >
-                {page}
+                {page[0]}
               </Button>
             ))}
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0}}>
+                  <Avatar alt="Remy Sharp" sx={{ width: "35px", height: "35px" }}  src="/static/images/avatar/2.jpg" />
               </IconButton>
             </Tooltip>
             <Menu
-              sx={{ mt: "45px" }}
+              sx={{ mt: "45px",  "& .MuiPaper-root": {
+                backgroundColor: "#457AA0"
+              }}}
               id="menu-appbar"
               anchorEl={anchorElUser}
               anchorOrigin={{
@@ -244,8 +270,9 @@ function NavBar() {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
+                <MenuItem key={setting[0]} component={RouterLink}
+                  to={setting[1]}  onClick={handleCloseUserMenu} sx={{backgroundColor:"#457AA0"}}>
+                  <Typography textAlign="center" className="navBar" variant="h6" sx={{fontFamily: 'Gaegu'}}>{setting[0]}</Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -253,6 +280,7 @@ function NavBar() {
         </Toolbar>
       </Box>
     </AppBar>
+    </>
   );
 }
 export default NavBar;

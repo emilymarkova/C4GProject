@@ -5,6 +5,7 @@ import "./SignUp.css";
 import NavBar from "../Components/NavBar";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
+import { Link as RouterLink } from "react-router-dom";
 
 export default function Login() {
   return (
@@ -133,6 +134,8 @@ export default function Login() {
               <Button
                 variant="contained"
                 size="medium"
+                component={RouterLink}
+                to="/home"
                 sx={{
                   borderRadius: "25px",
                   backgroundColor: "#013752",
@@ -142,7 +145,23 @@ export default function Login() {
               >
                 Login
               </Button>
-              <Typography>Or Sign Up</Typography>
+              <Button
+                key="SignUp"
+                component={RouterLink}
+                to="/"
+                className="nav-button navBar"
+                disableRipple
+                sx={{
+                  mr: 5,
+                  mx: 5,
+                  display: "block",
+                  fontFamily: "Arial",
+                  textDecoration: "none",
+                  textTransform: "capitalize",
+                }}
+              >
+                Or Sign Up
+              </Button>
             </Box>
           </Box>
         </Box>
