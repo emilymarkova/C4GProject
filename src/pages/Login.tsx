@@ -71,45 +71,13 @@ export default function Login() {
                 textAlign: "center",
                 width: "100%",
                 flexDirection: "column",
+                padding:"20px"
               }}
             >
               <TextField
                 id="standard-basic"
                 fullWidth
-                label="First Name"
-                variant="standard"
-                sx={{
-                  marginBottom: "10px",
-                  display: "block",
-                  "& .MuiInputBase-input": { width: "100%" },
-                }}
-              />
-              <TextField
-                id="standard-basic"
-                fullWidth
-                label="Last Name"
-                variant="standard"
-                sx={{
-                  marginBottom: "10px",
-                  display: "block",
-                  "& .MuiInputBase-input": { width: "100%" },
-                }}
-              />
-              <TextField
-                id="standard-basic"
-                fullWidth
                 label="Username"
-                variant="standard"
-                sx={{
-                  marginBottom: "10px",
-                  display: "block",
-                  "& .MuiInputBase-input": { width: "100%" },
-                }}
-              />
-              <TextField
-                fullWidth
-                id="standard-basic"
-                label="Email"
                 variant="standard"
                 sx={{
                   marginBottom: "10px",

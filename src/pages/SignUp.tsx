@@ -71,6 +71,7 @@ export default function SignUp() {
                 textAlign: "center",
                 width: "100%",
                 flexDirection: "column",
+                padding:"20px"
               }}
             >
               <TextField
