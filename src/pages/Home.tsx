@@ -1,7 +1,7 @@
 import React from 'react';
 import '../App.css';
 import Background from '../Components/Background';
-import PageContent from '../Components/PageContent';
+import HomeContent from '../Components/HomeContent';
 import NavBar from '../Components/NavBar';
 
 
@@ -13,8 +13,8 @@ export default function Home() {
     @import url('https://fonts.googleapis.com/css2?family=Gaegu&display=swap');
     </style>
     <Background/>
-      <NavBar/>
-    <PageContent/>
+    <NavBar/>
+    <HomeContent/>
     </>
   )
 }
