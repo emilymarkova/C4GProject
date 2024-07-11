@@ -5,6 +5,7 @@ import "./SignUp.css";
 import NavBar from "../Components/NavBar";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
+import { Link as RouterLink } from "react-router-dom";
 
 export default function SignUp() {
   return (
@@ -70,6 +71,7 @@ export default function SignUp() {
                 textAlign: "center",
                 width: "100%",
                 flexDirection: "column",
+                padding:"20px"
               }}
             >
               <TextField
@@ -139,10 +141,27 @@ export default function SignUp() {
                   textTransform: "none",
                   margin: "10px",
                 }}
+                component={RouterLink}
+                to="/login"
               >
                 Sign up
               </Button>
-              <Typography>Or Login</Typography>
+              <Button
+                key="Login"
+                component={RouterLink}
+                to="/login"
+                className="nav-button navBar"
+                disableRipple
+                sx={{
+                  mr: 5,
+                  mx: 5,
+                  display: "block",
+                  textDecoration: "none",
+                  textTransform: "capitalize",
+                }}
+              >
+                Or Login
+              </Button>
             </Box>
           </Box>
         </Box>
