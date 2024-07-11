@@ -6,21 +6,38 @@ import NavBar from "../Components/NavBar";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { Link as RouterLink } from "react-router-dom";
+import { useState } from "react";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 export default function Login() {
+  let [email, setEmail] = useState<string>("");
+  let [password, setPassword] = useState<string>("");
+  const login = async () => {
+    const auth = getAuth();
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        // ...
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+      });
+  };
   return (
     <Box
       className="login-page"
       sx={{
         height: "100%",
         width: "100%",
-        display:"flex",
+        display: "flex",
         textAlign: "center",
-        alignItems:"center",
+        alignItems: "center",
         justifyContent: "center",
         backgroundSize: "cover",
         backgroundPosition: "center",
-        flexDirection:"column"
+        flexDirection: "column",
       }}
     >
       <NavBar />
@@ -30,10 +47,10 @@ export default function Login() {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          justifyContent:"center",
+          justifyContent: "center",
           height: "100%",
           width: "100%",
-          flex:1
+          flex: 1,
         }}
       >
         <Box
@@ -71,14 +88,17 @@ export default function Login() {
                 textAlign: "center",
                 width: "100%",
                 flexDirection: "column",
-                padding:"20px"
+                padding: "20px",
               }}
             >
               <TextField
                 id="standard-basic"
                 fullWidth
-                label="Username"
+                label="Email"
                 variant="standard"
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                }}
                 sx={{
                   marginBottom: "10px",
                   display: "block",
@@ -91,6 +111,9 @@ export default function Login() {
                 label="Password"
                 type="password"
                 autoComplete="current-password"
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
                 variant="standard"
                 sx={{
                   marginBottom: "10px",
@@ -103,20 +126,21 @@ export default function Login() {
                 variant="contained"
                 size="medium"
                 component={RouterLink}
-                to="/home"
+                to="/"
                 sx={{
                   borderRadius: "25px",
                   backgroundColor: "#013752",
                   textTransform: "none",
                   margin: "10px",
                 }}
+                onClick={login}
               >
                 Login
               </Button>
               <Button
                 key="SignUp"
                 component={RouterLink}
-                to="/"
+                to="/signUp"
                 className="nav-button navBar"
                 disableRipple
                 sx={{
