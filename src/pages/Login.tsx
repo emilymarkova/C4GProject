@@ -5,24 +5,29 @@ import "./SignUp.css";
 import NavBar from "../Components/NavBar";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 export default function Login() {
+  const navigate = useNavigate();
+  let [loginError, setLoginError] = useState<String>("");
   let [email, setEmail] = useState<string>("");
   let [password, setPassword] = useState<string>("");
-  const login = async () => {
+  const login = async (event:any) => {
     const auth = getAuth();
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
+        navigate("/");
         // ...
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
+        event.preventDefault();
+        setLoginError("There was an error logging in. Please check your email and password.");
       });
   };
   return (
@@ -91,6 +96,7 @@ export default function Login() {
                 padding: "20px",
               }}
             >
+              <Typography id="error" variant="body2" sx={{ color: "#A63232" }}>{loginError}</Typography>
               <TextField
                 id="standard-basic"
                 fullWidth
@@ -125,8 +131,6 @@ export default function Login() {
               <Button
                 variant="contained"
                 size="medium"
-                component={RouterLink}
-                to="/"
                 sx={{
                   borderRadius: "25px",
                   backgroundColor: "#013752",

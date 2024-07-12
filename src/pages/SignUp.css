@@ -8,7 +8,10 @@
  background-repeat: no-repeat;
 }
 
-/* .login-page input:-webkit-autofill:active {
-	-webkit-box-shadow: 0 0 0 30px #20A4A4 inset !important;
-	-webkit-text-fill-color: #20A4A4 !important;
-} */
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active{
+   -webkit-box-shadow: 0 0 0 30px #20A4A4 inset !important;
+   -webkit-text-fill-color: black !important;
+}
