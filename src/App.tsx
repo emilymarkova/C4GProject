@@ -6,6 +6,7 @@ import Login from './pages/Login';
 import Home from './pages/Home';
 import Account from './pages/Account';
 import SignUp from './pages/SignUp';
+import Calendar from './pages/Calender'
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/home" element={<Home />}></Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/account" element={<Account />}></Route>
+        <Route path="/calendar" element={<Calendar />}></Route>
         <Route path="/" element={<SignUp />}></Route>
       </Routes>
     </BrowserRouter>
