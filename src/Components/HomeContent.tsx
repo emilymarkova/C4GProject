@@ -32,7 +32,7 @@ export default function HomeContent() {
       variant = "contained"
       component={Link}
       style={{minWidth:200, minHeight: 100}}
-      to={'/signup'}>
+      to={'/login'}>
         Login!
     </Button>
     </div>
