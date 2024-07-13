@@ -7,7 +7,6 @@ import Account from './pages/Account';
 import SignUp from './pages/SignUp';
 import About from './pages/About'
 import Calendar from './pages/Calender'
-import About from './pages/About'
 
 function App() {
   return (
