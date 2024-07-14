@@ -17,7 +17,7 @@ import Link from '@mui/material/Link';
 
 import "./NavBar.css";
 
-const pages = [["Calendar","/calendar"], ["FRQ","/"], ["Home","/home"]];
+const pages = [["Calendar","/calendar"], ["Home","/home"],["About","/about"]];
 const settings = [["Account","/account"], ["Logout","/"]];
 
 function NavBar() {

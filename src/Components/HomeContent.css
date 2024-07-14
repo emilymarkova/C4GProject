@@ -4,9 +4,9 @@
     color: #b2dbd7;
     justify-content: center;
     font-family: 'Gaegu', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    padding-top: 12rem;
+    padding-top: 28vh;
     font-size: 44px;
-    text-shadow: 2px 1px #97bffb;
+    text-shadow: 2px 1px #88ace2;
   }
   
   .TitleContent2 {
@@ -17,19 +17,19 @@
     font-family: 'Gaegu', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     padding-top: 0.5rem;
     font-size: 32px;
-    text-shadow: 2px 1px #97bffb;
+    text-shadow: 2px 1px #88ace2;
   }
 
   .button1 {
     position: absolute;
     text-align:right;
-    margin-top: 2rem;
-    margin-left: 42rem;
+    margin-top: 4vh;
+    margin-left: 32vw;
   }
 
   .button2 {
     position: absolute;
     text-align: left;
-    margin-top: 2rem;
-    margin-left: 66rem;
+    margin-top: 4vh;
+    margin-left: 56vw;
   }

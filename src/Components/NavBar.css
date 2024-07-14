@@ -2,6 +2,7 @@
 
 .navBar {
   font-family: 'Gaegu', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  text-shadow: 1px 1px 5px #6291D8;
 }
 .nav-button:active {
   color: #6291D8;
