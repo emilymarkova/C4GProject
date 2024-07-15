@@ -27,11 +27,13 @@ export default function SignUp() {
       .then((userCredential) => {
         // Signed up
         const user = userCredential.user;
+        alert(user);
         // ...
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
+        alert(errorMessage);
         // ..
       });
 
