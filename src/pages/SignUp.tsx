@@ -12,9 +12,9 @@ import { getDatabase, ref, set, push } from "firebase/database";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { onAuthStateChanged } from "firebase/auth";
-import { execPath } from "process";
+import { execPath } from "process";import transition from "../transiton";
 
-export default function SignUp() {
+function SignUp() {
   const navigate = useNavigate();
   let [firstName, setFirstName] = useState<string>("");
   let [lastName, setLastName] = useState<string>("");
@@ -213,3 +213,5 @@ export default function SignUp() {
     </Box>
   );
 }
+
+export default transition(SignUp);
