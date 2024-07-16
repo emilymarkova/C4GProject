@@ -1,0 +1,13 @@
+/* src/pages/FullCalendarCustom.css */
+
+/* Ensure the dates in the calendar are black */
+.fc .fc-daygrid-day-number, 
+.fc .fc-daygrid-event-dot,
+.fc .fc-daygrid-event-title {
+  color: black !important;
+}
+
+/* Ensure the text in events is black */
+.fc-event-title {
+  color: black !important;
+}
