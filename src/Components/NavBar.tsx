@@ -15,11 +15,13 @@ import { Link as RouterLink } from "react-router-dom";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { signOut } from "firebase/auth";
 import "./NavBar.css";
+import FullPageCalendar from '../pages/FullPageCalendar'
+import About from '../pages/About'
 
 const pages = [
-  ["Calendar", "/login"],
-  ["FRQ", "/"],
   ["Home", "/"],
+  ["About", "/about"],
+  ["Calendar", "/calendar"],
 ];
 const settings = [
   ["Account", "/account"],
