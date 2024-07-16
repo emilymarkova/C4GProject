@@ -21,8 +21,6 @@ export default function Login() {
         // Signed in
         const user = userCredential.user;
         navigate("/");
-        alert(user);
-        // ...
       })
       .catch((error) => {
         const errorCode = error.code;

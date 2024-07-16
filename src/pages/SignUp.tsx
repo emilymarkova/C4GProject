@@ -6,7 +6,7 @@ import NavBar from "../Components/NavBar";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import app from "../firebaseConfig";
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink , useNavigate} from "react-router-dom";
 import { useState } from "react";
 import { getDatabase, ref, set, push } from "firebase/database";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
@@ -15,16 +15,14 @@ import { onAuthStateChanged } from "firebase/auth";
 import { execPath } from "process";
 
 export default function SignUp() {
+  const navigate = useNavigate();
   let [firstName, setFirstName] = useState<string>("");
   let [lastName, setLastName] = useState<string>("");
-  let [userName, setUserName] = useState<string>("");
   let [email, setEmail] = useState<string>("");
   let [password, setPassword] = useState<string>("");
+  let [loginError, setLoginError] = useState<String>("");
 
   const saveData = async () => {
-    alert(
-      firstName + " " + lastName + " " + userName + " " + email + " " + password
-    );
     try {
       var auth = getAuth();
       const userCredential = await createUserWithEmailAndPassword(
@@ -41,21 +39,14 @@ export default function SignUp() {
       set(userRef, {
         firstName: firstName,
         lastName: lastName,
-        userName: userName,
-        email: email,
       });
+      navigate("/");
     } catch (error: any) {
       const errorCode = error.code;
       const errorMessage = error.message;
       alert(errorMessage);
+      setLoginError("There was an error logging in. Please check your email and password.");
     }
-    // auth = getAuth();
-    // alert("current/:" + auth.currentUser);
-    // if (auth.currentUser) {
-
-    // } else {
-    //   console.log("user does not exist")
-    // }
   };
   return (
     <Box
@@ -123,6 +114,7 @@ export default function SignUp() {
                 padding: "20px",
               }}
             >
+              <Typography id="error" variant="body2" sx={{ color: "#A63232" }}>{loginError}</Typography>
               <TextField
                 id="standard-basic"
                 fullWidth
@@ -154,21 +146,6 @@ export default function SignUp() {
                 }}
               />
               <TextField
-                id="standard-basic"
-                fullWidth
-                label="Username"
-                variant="standard"
-                value={userName}
-                onChange={(e) => {
-                  setUserName(e.target.value);
-                }}
-                sx={{
-                  marginBottom: "10px",
-                  display: "block",
-                  "& .MuiInputBase-input": { width: "100%" },
-                }}
-              />
-              <TextField
                 fullWidth
                 id="standard-basic"
                 label="Email"
@@ -186,13 +163,12 @@ export default function SignUp() {
               <TextField
                 fullWidth
                 id="standard-password-input"
-                label="Password"
+                label="Password (6+ characters)"
                 type="password"
                 autoComplete="current-password"
                 variant="standard"
                 value={password}
                 onChange={(e) => {
-                  // alert("setting new password!!!");
                   setPassword(e.target.value);
                 }}
                 sx={{
@@ -211,8 +187,6 @@ export default function SignUp() {
                   textTransform: "none",
                   margin: "10px",
                 }}
-                component={RouterLink}
-                to="/"
                 onClick={saveData}
               >
                 Sign up

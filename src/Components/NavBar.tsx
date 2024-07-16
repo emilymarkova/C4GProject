@@ -6,22 +6,15 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
-import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import { Link as RouterLink } from "react-router-dom";
-import { getDatabase, ref, set, push } from "firebase/database";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { signOut } from "firebase/auth";
-
-
-import Link from "@mui/material/Link";
-
 import "./NavBar.css";
-import { unsubscribe } from "diagnostics_channel";
 
 const pages = [
   ["Calendar", "/login"],
@@ -40,11 +33,8 @@ function NavBar() {
     const checkLogIn = onAuthStateChanged(auth, (user) => {
       if (user) {
         setLoggedIn(true);
-        // alert("userID : " + user.uid);
-        // ...
       } else {
         setLoggedIn(false);
-        // ...
       }
     });
     return () => checkLogIn();
@@ -74,14 +64,16 @@ function NavBar() {
   const closeMenu = (setting: string) => {
     if (setting == "Logout") {
       const auth = getAuth();
-      signOut(auth).then(() => {
-        setLoggedIn(false);
-      }).catch((error) => {
-        alert(error);
-      });
+      signOut(auth)
+        .then(() => {
+          setLoggedIn(false);
+        })
+        .catch((error) => {
+          alert(error);
+        });
     }
     handleCloseUserMenu();
-  }
+  };
 
   return (
     <>
@@ -111,8 +103,6 @@ function NavBar() {
                 justifyContent: "center",
               }}
             >
-              {/* <Link href={"/home"} sx={{display:"flex"}}> */}
-
               <AdbIcon
                 sx={{
                   display: {
@@ -131,7 +121,6 @@ function NavBar() {
                 noWrap
                 className="navBar"
                 component="a"
-                // href="#app-bar-with-responsive-menu"
                 sx={{
                   mr: 2,
                   display: {
@@ -150,7 +139,6 @@ function NavBar() {
               >
                 Eventide
               </Typography>
-              {/* </Link> */}
             </Box>
 
             <Box
@@ -237,7 +225,6 @@ function NavBar() {
               className="navBar"
               noWrap
               component="a"
-              // href="#app-bar-with-responsive-menu"
               sx={{
                 mr: 2,
                 display: {
@@ -330,7 +317,9 @@ function NavBar() {
                       key={setting[0]}
                       component={RouterLink}
                       to={setting[1]}
-                      onClick={function () { closeMenu(setting[0]) }}
+                      onClick={function () {
+                        closeMenu(setting[0]);
+                      }}
                       sx={{ backgroundColor: "#457AA0" }}
                     >
                       <Typography
@@ -346,8 +335,16 @@ function NavBar() {
                 </Menu>
               </Box>
             ) : (
-              <Box sx={{ flexGrow: 0, height:"80%", textAlign:"center",justifyContent:"center",alignItems:"center" }}>
-<Button
+              <Box
+                sx={{
+                  flexGrow: 0,
+                  height: "80%",
+                  textAlign: "center",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <Button
                   component={RouterLink}
                   to={"/login"}
                   className="nav-button navBar"
@@ -363,7 +360,7 @@ function NavBar() {
                 >
                   Login
                 </Button>
-                  </Box>
+              </Box>
             )}
           </Toolbar>
         </Box>
