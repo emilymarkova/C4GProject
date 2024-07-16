@@ -12,7 +12,8 @@ import { getDatabase, ref, set, push } from "firebase/database";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { onAuthStateChanged } from "firebase/auth";
-import { execPath } from "process";import transition from "../transiton";
+import transition from "../transiton";
+import { execPath } from "process";
 
 function SignUp() {
   const navigate = useNavigate();
@@ -168,6 +169,7 @@ function SignUp() {
                 variant="standard"
                 value={password}
                 onChange={(e) => {
+                  // alert("setting new password!!!");
                   setPassword(e.target.value);
                 }}
                 sx={{
