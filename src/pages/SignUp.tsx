@@ -12,7 +12,7 @@ import { getDatabase, ref, set, push } from "firebase/database";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { onAuthStateChanged } from "firebase/auth";
-
+import { execPath } from "process";
 
 export default function SignUp() {
   let [firstName, setFirstName] = useState<string>("");
@@ -22,41 +22,40 @@ export default function SignUp() {
   let [password, setPassword] = useState<string>("");
 
   const saveData = async () => {
-    const auth = getAuth();
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        // Signed up
-        const user = userCredential.user;
-        alert(user);
-        // ...
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        alert(errorMessage);
-        // ..
-      });
+    alert(
+      firstName + " " + lastName + " " + userName + " " + email + " " + password
+    );
+    try {
+      var auth = getAuth();
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      const user = userCredential.user;
 
-    if (auth.currentUser) {
-      const userId = auth.currentUser.uid;
-    console.log("userID : " + userId);
-    const db = getDatabase(app);
-    const userRef = ref(db, 'users/' + userId);
-    set(userRef, {
-      firstName: firstName,
-      lastName: lastName,
-      userName: userName,
-      email: email,
-    })
-      .then(() => {
-        alert("data saved successfully");
-      })
-      .catch((error) => {
-        alert("error : " + error.message);
+      await signInWithEmailAndPassword(auth, email, password);
+
+      const db = getDatabase(app);
+      const userRef = ref(db, "users/" + user.uid);
+      set(userRef, {
+        firstName: firstName,
+        lastName: lastName,
+        userName: userName,
+        email: email,
       });
+    } catch (error: any) {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      alert(errorMessage);
     }
+    // auth = getAuth();
+    // alert("current/:" + auth.currentUser);
+    // if (auth.currentUser) {
 
-    
+    // } else {
+    //   console.log("user does not exist")
+    // }
   };
   return (
     <Box
@@ -144,6 +143,7 @@ export default function SignUp() {
                 fullWidth
                 label="Last Name"
                 variant="standard"
+                value={lastName}
                 onChange={(e) => {
                   setLastName(e.target.value);
                 }}
@@ -158,6 +158,7 @@ export default function SignUp() {
                 fullWidth
                 label="Username"
                 variant="standard"
+                value={userName}
                 onChange={(e) => {
                   setUserName(e.target.value);
                 }}
@@ -172,6 +173,7 @@ export default function SignUp() {
                 id="standard-basic"
                 label="Email"
                 variant="standard"
+                value={email}
                 onChange={(e) => {
                   setEmail(e.target.value);
                 }}
@@ -188,7 +190,9 @@ export default function SignUp() {
                 type="password"
                 autoComplete="current-password"
                 variant="standard"
+                value={password}
                 onChange={(e) => {
+                  // alert("setting new password!!!");
                   setPassword(e.target.value);
                 }}
                 sx={{
