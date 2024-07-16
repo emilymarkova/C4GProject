@@ -1,5 +1,3 @@
-// src/pages/FullPageCalendar.tsx
-
 import React, { useState } from 'react';
 import {
   Box,
@@ -11,24 +9,47 @@ import {
   DialogContentText,
   DialogTitle,
   TextField,
-  Typography,
 } from '@mui/material';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import './FullCalendarCustom.css'; // Import the custom CSS
+import NavBar from '../Components/NavBar'; // Ensure the import path is correct
+
+interface Event {
+  id: string;
+  title: string;
+  date: string;
+}
 
 const FullPageCalendar: React.FC = () => {
-  const [events, setEvents] = useState([
-    { title: 'Event 1', date: '2024-07-11T10:00:00' },
-    { title: 'Event 2', date: '2024-07-12T14:00:00' },
+  const [events, setEvents] = useState<Event[]>([
+    { id: '1', title: 'Event 1', date: '2024-07-11T10:00:00' },
+    { id: '2', title: 'Event 2', date: '2024-07-12T14:00:00' },
   ]);
   const [open, setOpen] = useState(false);
-  const [newEvent, setNewEvent] = useState({ title: '', date: '', time: '' });
+  const [isEditing, setIsEditing] = useState(false);
+  const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
+  const [newEvent, setNewEvent] = useState({ id: '', title: '', date: '', time: '' });
 
   const handleDateClick = (arg: any) => {
-    setNewEvent({ ...newEvent, date: arg.dateStr });
+    const clickedDateTime = arg.date;
+    const clickedDate = clickedDateTime.toISOString().split('T')[0];
+    const clickedTime = clickedDateTime.toTimeString().split(' ')[0].substring(0, 5);
+    setNewEvent({ id: '', title: '', date: clickedDate, time: clickedTime });
+    setIsEditing(false);
+    setOpen(true);
+  };
+
+  const handleEventClick = (arg: any) => {
+    const event = arg.event;
+    const eventDateTime = new Date(event.start!);
+    const eventDate = eventDateTime.toISOString().split('T')[0];
+    const eventTime = eventDateTime.toTimeString().split(' ')[0].substring(0, 5);
+    setNewEvent({ id: event.id, title: event.title, date: eventDate, time: eventTime });
+    setSelectedEvent({ id: event.id, title: event.title, date: event.start!.toISOString() });
+    setIsEditing(true);
     setOpen(true);
   };
 
@@ -36,9 +57,16 @@ const FullPageCalendar: React.FC = () => {
     setOpen(false);
   };
 
-  const handleAddEvent = () => {
+  const handleAddOrUpdateEvent = () => {
     const combinedDateTime = `${newEvent.date}T${newEvent.time}`;
-    setEvents([...events, { title: newEvent.title, date: combinedDateTime }]);
+    if (isEditing) {
+      // Update event
+      setEvents(events.map(event => (event.id === newEvent.id ? { ...event, title: newEvent.title, date: combinedDateTime } : event)));
+    } else {
+      // Add new event
+      const newId = events.length ? (parseInt(events[events.length - 1].id) + 1).toString() : '1';
+      setEvents([...events, { id: newId, title: newEvent.title, date: combinedDateTime }]);
+    }
     setOpen(false);
   };
 
@@ -49,29 +77,32 @@ const FullPageCalendar: React.FC = () => {
 
   return (
     <Container maxWidth={false} disableGutters>
+      <NavBar />
       <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center" minHeight="100vh">
-        <Typography variant="h4" gutterBottom>
-          Full Page Calendar
-        </Typography>
         <Box width="90%" height="80vh">
           <FullCalendar
             plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-            initialView="dayGridMonth"
+            initialView="timeGridWeek"
             events={events}
             dateClick={handleDateClick}
+            eventClick={handleEventClick}
             headerToolbar={{
               left: 'prev,next today',
               center: 'title',
               right: 'dayGridMonth,timeGridWeek,timeGridDay',
             }}
+            initialDate={new Date()}
+            dayHeaderContent={(arg) => {
+              return <span>{arg.date.toLocaleDateString(undefined, { weekday: 'long' })}</span>;
+            }}
             height="100%"
           />
         </Box>
         <Dialog open={open} onClose={handleClose}>
-          <DialogTitle>Add Event</DialogTitle>
+          <DialogTitle>{isEditing ? 'Edit Event' : 'Add Event'}</DialogTitle>
           <DialogContent>
             <DialogContentText>
-              Enter the details for the new event.
+              {isEditing ? 'Edit the details for the event.' : 'Enter the details for the new event.'}
             </DialogContentText>
             <TextField
               autoFocus
@@ -122,8 +153,8 @@ const FullPageCalendar: React.FC = () => {
             <Button onClick={handleClose} color="primary">
               Cancel
             </Button>
-            <Button onClick={handleAddEvent} color="primary">
-              Add Event
+            <Button onClick={handleAddOrUpdateEvent} color="primary">
+              {isEditing ? 'Update Event' : 'Add Event'}
             </Button>
           </DialogActions>
         </Dialog>
