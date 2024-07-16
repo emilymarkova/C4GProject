@@ -20,7 +20,8 @@ import { signOut } from "firebase/auth";
 import Link from "@mui/material/Link";
 
 import "./NavBar.css";
-import { unsubscribe } from "diagnostics_channel";
+import FullPageCalendar from '../pages/FullPageCalendar'
+import About from '../pages/About'
 
 const pages = [
   ["Home", "/"],
