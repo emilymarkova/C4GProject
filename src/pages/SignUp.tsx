@@ -169,7 +169,6 @@ function SignUp() {
                 variant="standard"
                 value={password}
                 onChange={(e) => {
-                  // alert("setting new password!!!");
                   setPassword(e.target.value);
                 }}
                 sx={{
