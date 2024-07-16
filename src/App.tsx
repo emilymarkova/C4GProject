@@ -8,7 +8,6 @@ import SignUp from './pages/SignUp';
 import FullPageCalendar from './pages/FullPageCalendar'
 import About from './pages/About'
 
-
 function App() {
   return (
     <BrowserRouter>
