@@ -19,7 +19,6 @@ function App() {
         <Route path="/"       element={<Home />}></Route>
         <Route path="/login"     element={<Login />}></Route>
         <Route path="/account" element={<Account />}></Route>
-
         <Route path="/calendar" element={<FullPageCalendar />}></Route>
         <Route path="/" element={<SignUp />}></Route>
         <Route path="/signUp"     element={<SignUp />}></Route>
