@@ -12,8 +12,8 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import { Link as RouterLink } from "react-router-dom";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { signOut } from "firebase/auth";
+import Link from '@mui/material/Link';
+
 import "./NavBar.css";
 import FullPageCalendar from '../pages/FullPageCalendar'
 import About from '../pages/About'
