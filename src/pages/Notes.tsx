@@ -1,7 +1,8 @@
 import Background from "../Components/Background"
 import NavBar from "../Components/NavBar"
+import transition from "../transiton"
 
-export default function Notes() {
+function Notes() {
   return (
     <div>
         <Background/>
@@ -9,3 +10,5 @@ export default function Notes() {
     </div>
   )
 }
+
+export default transition(Notes)

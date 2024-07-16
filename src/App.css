@@ -30,6 +30,7 @@ a:link, a:visited, a {
   height: 100vh;
   background: #b2dbd7;
   transform-origin: bottom;
+  z-index: 5;
 }
 
 .slide-out {
@@ -40,4 +41,5 @@ a:link, a:visited, a {
   height: 100vh;
   background: #b2dbd7;
   transform-origin: top;
+  z-index: 5;
 }
