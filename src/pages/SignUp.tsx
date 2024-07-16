@@ -5,22 +5,72 @@ import "./SignUp.css";
 import NavBar from "../Components/NavBar";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
+import app from "../firebaseConfig";
 import { Link as RouterLink } from "react-router-dom";
+import { useState } from "react";
+import { getDatabase, ref, set, push } from "firebase/database";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { onAuthStateChanged } from "firebase/auth";
+
 
 export default function SignUp() {
+  let [firstName, setFirstName] = useState<string>("");
+  let [lastName, setLastName] = useState<string>("");
+  let [userName, setUserName] = useState<string>("");
+  let [email, setEmail] = useState<string>("");
+  let [password, setPassword] = useState<string>("");
+
+  const saveData = async () => {
+    const auth = getAuth();
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed up
+        const user = userCredential.user;
+        alert(user);
+        // ...
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        alert(errorMessage);
+        // ..
+      });
+
+    if (auth.currentUser) {
+      const userId = auth.currentUser.uid;
+    console.log("userID : " + userId);
+    const db = getDatabase(app);
+    const userRef = ref(db, 'users/' + userId);
+    set(userRef, {
+      firstName: firstName,
+      lastName: lastName,
+      userName: userName,
+      email: email,
+    })
+      .then(() => {
+        alert("data saved successfully");
+      })
+      .catch((error) => {
+        alert("error : " + error.message);
+      });
+    }
+
+    
+  };
   return (
     <Box
       className="login-page"
       sx={{
         height: "100%",
         width: "100%",
-        display:"flex",
+        display: "flex",
         textAlign: "center",
-        alignItems:"center",
+        alignItems: "center",
         justifyContent: "center",
         backgroundSize: "cover",
         backgroundPosition: "center",
-        flexDirection:"column"
+        flexDirection: "column",
       }}
     >
       <NavBar />
@@ -30,10 +80,10 @@ export default function SignUp() {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          justifyContent:"center",
+          justifyContent: "center",
           height: "100%",
           width: "100%",
-          flex:1
+          flex: 1,
         }}
       >
         <Box
@@ -71,7 +121,7 @@ export default function SignUp() {
                 textAlign: "center",
                 width: "100%",
                 flexDirection: "column",
-                padding:"20px"
+                padding: "20px",
               }}
             >
               <TextField
@@ -79,6 +129,10 @@ export default function SignUp() {
                 fullWidth
                 label="First Name"
                 variant="standard"
+                value={firstName}
+                onChange={(e) => {
+                  setFirstName(e.target.value);
+                }}
                 sx={{
                   marginBottom: "10px",
                   display: "block",
@@ -90,6 +144,9 @@ export default function SignUp() {
                 fullWidth
                 label="Last Name"
                 variant="standard"
+                onChange={(e) => {
+                  setLastName(e.target.value);
+                }}
                 sx={{
                   marginBottom: "10px",
                   display: "block",
@@ -101,6 +158,9 @@ export default function SignUp() {
                 fullWidth
                 label="Username"
                 variant="standard"
+                onChange={(e) => {
+                  setUserName(e.target.value);
+                }}
                 sx={{
                   marginBottom: "10px",
                   display: "block",
@@ -112,6 +172,9 @@ export default function SignUp() {
                 id="standard-basic"
                 label="Email"
                 variant="standard"
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                }}
                 sx={{
                   marginBottom: "10px",
                   display: "block",
@@ -125,6 +188,9 @@ export default function SignUp() {
                 type="password"
                 autoComplete="current-password"
                 variant="standard"
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
                 sx={{
                   marginBottom: "10px",
                   display: "block",
@@ -142,7 +208,8 @@ export default function SignUp() {
                   margin: "10px",
                 }}
                 component={RouterLink}
-                to="/login"
+                to="/"
+                onClick={saveData}
               >
                 Sign up
               </Button>
