@@ -70,6 +70,13 @@ const FullPageCalendar: React.FC = () => {
     setOpen(false);
   };
 
+  const handleDeleteEvent = () => {
+    if (selectedEvent) {
+      setEvents(events.filter(event => event.id !== selectedEvent.id));
+      setOpen(false);
+    }
+  };
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setNewEvent({ ...newEvent, [name]: value });
@@ -153,6 +160,11 @@ const FullPageCalendar: React.FC = () => {
             <Button onClick={handleClose} color="primary">
               Cancel
             </Button>
+            {isEditing && (
+              <Button onClick={handleDeleteEvent} color="secondary">
+                Delete Event
+              </Button>
+            )}
             <Button onClick={handleAddOrUpdateEvent} color="primary">
               {isEditing ? 'Update Event' : 'Add Event'}
             </Button>
