@@ -69,7 +69,7 @@ function NavBar() {
           setLoggedIn(false);
         })
         .catch((error) => {
-          alert(error);
+          const errorMessage = error;
         });
     }
     handleCloseUserMenu();

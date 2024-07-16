@@ -86,7 +86,7 @@ export default function Account() {
             " for a verification email before signing in again."
         );
       } catch (error: any) {
-        alert(error.message);
+        const errorMessage = error.message;
       }
 
       //update database

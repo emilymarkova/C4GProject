@@ -44,7 +44,6 @@ export default function SignUp() {
     } catch (error: any) {
       const errorCode = error.code;
       const errorMessage = error.message;
-      alert(errorMessage);
       setLoginError("There was an error logging in. Please check your email and password.");
     }
   };
