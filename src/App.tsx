@@ -16,13 +16,14 @@ function App() {
   return (
     <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
-        <Route path="/"       element={<Home />}></Route>
-        <Route path="/login"     element={<Login />}></Route>
-        <Route path="/account" element={<Account />}></Route>
+        <Route path="/"         element= {<Home />}></Route>
+        <Route path="/home"     element={<Home />}></Route>
+        <Route path="/login"    element={<Login />}>  </Route>
+        <Route path="/account"  element={<Account />}>  </Route>
         <Route path="/calendar" element={<FullPageCalendar />}></Route>
-        <Route path="/signUp"     element={<SignUp />}></Route>
-        <Route path="/about"     element={<About />}></Route>
-        <Route path="/notes"     element={<Notes />}></Route>
+        <Route path="/signUp"   element={<SignUp />}></Route>
+        <Route path="/about"    element={<About />}></Route>
+        <Route path="/notes"    element={<Notes />}></Route>
       </Routes>
       </AnimatePresence>
   );
