@@ -21,14 +21,11 @@ export default function Login() {
         // Signed in
         const user = userCredential.user;
         navigate("/");
-        alert(user);
-        // ...
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         event.preventDefault();
-        alert(errorMessage);
         setLoginError("There was an error logging in. Please check your email and password.");
       });
   };

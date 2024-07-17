@@ -1,36 +1,32 @@
 import * as React from "react";
-import logo from "./logo.svg";
-import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import "./SignUp.css";
 import NavBar from "../Components/NavBar";
 import Button from "@mui/material/Button";
 import Avatar from "@mui/material/Avatar";
 import EmailIcon from "@mui/icons-material/Email";
-import IconButton from "@mui/material/IconButton";
-import Input from "@mui/material/Input";
-import FilledInput from "@mui/material/FilledInput";
-import OutlinedInput from "@mui/material/OutlinedInput";
-import InputLabel from "@mui/material/InputLabel";
 import InputAdornment from "@mui/material/InputAdornment";
-import FormHelperText from "@mui/material/FormHelperText";
-import FormControl from "@mui/material/FormControl";
 import TextField from "@mui/material/TextField";
-import Visibility from "@mui/icons-material/Visibility";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
-
+import { signOut } from "firebase/auth";
+import { useState } from "react";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
-import ListItemText from "@mui/material/ListItemText";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import app from "../firebaseConfig";
+import "firebase/auth";
+import "firebase/database";
 import Divider from "@mui/material/Divider";
-
-import { Link as RouterLink } from "react-router-dom";
+import { getDatabase, ref, set, get } from "firebase/database";
+import {
+  getAuth,
+  sendPasswordResetEmail,
+  verifyBeforeUpdateEmail,
+} from "firebase/auth";
 
 const style = {
   py: 0,
   width: "100%",
-  // maxWidth: 360,
   borderRadius: 2,
   border: "none",
   borderColor: "divider",
@@ -39,9 +35,83 @@ const style = {
 
 export default function Account() {
   const [showPassword, setShowPassword] = React.useState(false);
+  const navigate = useNavigate();
+  let [originalEmail, setOriginalEmail] = useState<string>("");
+  let [email, setEmail] = useState<string>("");
+  let [firstName, setFirstName] = useState<string>("");
+  let [lastName, setLastName] = useState<string>("");
+  const db = getDatabase(app);
+  const auth = getAuth();
+  const user = auth.currentUser;
 
-  const handleClickShowPassword = () => setShowPassword((show) => !show);
+  useEffect(() => {
+    const setUp = async () => {
+      if (user) {
+        const userRef = ref(db, "users/" + user.uid);
+        try {
+          const snapshot = await get(userRef);
+          if (snapshot.exists()) {
+            const data = snapshot.val();
+            setFirstName(data.firstName);
+            setLastName(data.lastName);
+            if (user.email) {
+              setEmail(user.email);
+              setOriginalEmail(user.email);
+            }
+          }
+        } catch (error: any) {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+        }
+      }
+    };
+    setUp();
+  }, [user]);
 
+  const save = async () => {
+    const currentUser = getAuth(app).currentUser;
+    const auth = getAuth();
+
+    //update profile
+    if (auth.currentUser) {
+      const user = auth.currentUser;
+      try {
+        await verifyBeforeUpdateEmail(user, email);
+        await signOut(auth);
+        window.location.reload();
+        navigate("/");
+        alert(
+          "Check " +
+            email +
+            " for a verification email before signing in again."
+        );
+      } catch (error: any) {
+        const errorMessage = error.message;
+      }
+
+      //update database
+      const db = getDatabase(app);
+      const userRef = ref(db, "users/" + user.uid);
+      set(userRef, {
+        firstName: firstName,
+        lastName: lastName,
+      });
+    }
+  };
+
+  const passwordReset = () => {
+    const auth = getAuth();
+    sendPasswordResetEmail(auth, email)
+      .then(() => {
+        alert(
+          "Check your email for instructions on how to change your password"
+        );
+      })
+      .catch((error: any) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+      });
+  };
   const handleMouseDownPassword = (
     event: React.MouseEvent<HTMLButtonElement>
   ) => {
@@ -116,12 +186,14 @@ export default function Account() {
                   fullWidth
                   sx={{
                     marginBottom: "10px",
-                    // mr: "100px",
                     width: "100%",
                     maxWidth: "min(80%, 300px)",
                     flex: "1 1 auto",
-                    // display: "block",
                     "& .MuiInputBase-input": { width: "100%" },
+                  }}
+                  value={firstName}
+                  onChange={(e) => {
+                    setFirstName(e.target.value);
                   }}
                   InputProps={{
                     style: {
@@ -141,9 +213,11 @@ export default function Account() {
                     width: "100%",
                     maxWidth: "min(80%, 300px)",
                     flex: "1 1 auto",
-
-                    // display: "block",
                     "& .MuiInputBase-input": { width: "100%" },
+                  }}
+                  value={lastName}
+                  onChange={(e) => {
+                    setLastName(e.target.value);
                   }}
                   InputProps={{
                     style: {
@@ -180,97 +254,51 @@ export default function Account() {
                       borderRadius: "15px",
                     },
                   }}
+                  value={email}
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                  }}
                   sx={{
                     marginBottom: "10px",
                     mr: "100px",
                     width: "100%",
                     maxWidth: "min(80%, 300px)",
                     flex: "1 1 auto",
-                    // display: "block",
                     "& .MuiInputBase-input": { width: "100%" },
                   }}
                 />
               </Box>
             </Box>
           </ListItem>
-          <Divider component="li" />
           <ListItem>
-            <Box sx={{ marginTop: "10px" }}>
-              <Typography>Password</Typography>
-              <Box
-                sx={{
-                  display: "flex",
-                  marginTop: "10px",
-                  width: "100%",
-                  flexDirection: "row",
-                  flexWrap: "wrap",
-                  gap: "16px",
-                }}
-              >
-                <FormControl
-                  sx={{
-                    // m: 1,
-                    width: "100%",
-                    maxWidth: "min(80%, 300px)",
-                    flex: "1 1 auto",
-                  }}
-                  variant="outlined"
-                >
-                  <InputLabel htmlFor="outlined-adornment-password">
-                    Current Password
-                  </InputLabel>
-                  <OutlinedInput
-                    id="outlined-adornment-password"
-                    type={showPassword ? "text" : "password"}
-                    endAdornment={
-                      <InputAdornment position="end">
-                        <IconButton
-                          aria-label="toggle password visibility"
-                          onClick={handleClickShowPassword}
-                          onMouseDown={handleMouseDownPassword}
-                          edge="end"
-                        >
-                          {showPassword ? <VisibilityOff /> : <Visibility />}
-                        </IconButton>
-                      </InputAdornment>
-                    }
-                    label="Current Password"
-                    sx={{ width: "100%" }}
-                  />
-                </FormControl>
-                <FormControl
-                  sx={{
-                    // m: 1,
-                    width: "100%",
-                    maxWidth: "min(80%, 300px)",
-                    flex: "1 1 auto",
-                  }}
-                  variant="outlined"
-                >
-                  <InputLabel htmlFor="outlined-adornment-password">
-                    New Password
-                  </InputLabel>
-                  <OutlinedInput
-                    id="outlined-adornment-password"
-                    type={showPassword ? "text" : "password"}
-                    endAdornment={
-                      <InputAdornment position="end">
-                        <IconButton
-                          aria-label="toggle password visibility"
-                          onClick={handleClickShowPassword}
-                          onMouseDown={handleMouseDownPassword}
-                          edge="end"
-                        >
-                          {showPassword ? <VisibilityOff /> : <Visibility />}
-                        </IconButton>
-                      </InputAdornment>
-                    }
-                    label="New Password"
-                    sx={{ width: "100%" }}
-                  />
-                </FormControl>
-              </Box>
-            </Box>
+            <Button
+              variant="contained"
+              size="medium"
+              sx={{
+                borderRadius: "25px",
+                backgroundColor: "#013752",
+                textTransform: "none",
+                margin: "10px",
+              }}
+              onClick={passwordReset}
+            >
+              Reset Password
+            </Button>
+          </ListItem>
+          <ListItem>
+            <Button
+              variant="contained"
+              size="medium"
+              sx={{
+                borderRadius: "25px",
+                backgroundColor: "#013752",
+                textTransform: "none",
+                margin: "10px",
+              }}
+              onClick={save}
+            >
+              Save
+            </Button>
           </ListItem>
         </List>
       </Box>

@@ -6,57 +6,46 @@ import NavBar from "../Components/NavBar";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import app from "../firebaseConfig";
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink , useNavigate} from "react-router-dom";
 import { useState } from "react";
 import { getDatabase, ref, set, push } from "firebase/database";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { onAuthStateChanged } from "firebase/auth";
-
+import { execPath } from "process";
 
 export default function SignUp() {
+  const navigate = useNavigate();
   let [firstName, setFirstName] = useState<string>("");
   let [lastName, setLastName] = useState<string>("");
-  let [userName, setUserName] = useState<string>("");
   let [email, setEmail] = useState<string>("");
   let [password, setPassword] = useState<string>("");
+  let [loginError, setLoginError] = useState<String>("");
 
   const saveData = async () => {
-    const auth = getAuth();
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        // Signed up
-        const user = userCredential.user;
-        alert(user);
-        // ...
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        alert(errorMessage);
-        // ..
-      });
+    try {
+      var auth = getAuth();
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      const user = userCredential.user;
 
-    if (auth.currentUser) {
-      const userId = auth.currentUser.uid;
-    console.log("userID : " + userId);
-    const db = getDatabase(app);
-    const userRef = ref(db, 'users/' + userId);
-    set(userRef, {
-      firstName: firstName,
-      lastName: lastName,
-      userName: userName,
-      email: email,
-    })
-      .then(() => {
-        alert("data saved successfully");
-      })
-      .catch((error) => {
-        alert("error : " + error.message);
+      await signInWithEmailAndPassword(auth, email, password);
+
+      const db = getDatabase(app);
+      const userRef = ref(db, "users/" + user.uid);
+      set(userRef, {
+        firstName: firstName,
+        lastName: lastName,
       });
+      navigate("/");
+    } catch (error: any) {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      setLoginError("There was an error logging in. Please check your email and password.");
     }
-
-    
   };
   return (
     <Box
@@ -124,6 +113,7 @@ export default function SignUp() {
                 padding: "20px",
               }}
             >
+              <Typography id="error" variant="body2" sx={{ color: "#A63232" }}>{loginError}</Typography>
               <TextField
                 id="standard-basic"
                 fullWidth
@@ -144,22 +134,9 @@ export default function SignUp() {
                 fullWidth
                 label="Last Name"
                 variant="standard"
+                value={lastName}
                 onChange={(e) => {
                   setLastName(e.target.value);
-                }}
-                sx={{
-                  marginBottom: "10px",
-                  display: "block",
-                  "& .MuiInputBase-input": { width: "100%" },
-                }}
-              />
-              <TextField
-                id="standard-basic"
-                fullWidth
-                label="Username"
-                variant="standard"
-                onChange={(e) => {
-                  setUserName(e.target.value);
                 }}
                 sx={{
                   marginBottom: "10px",
@@ -172,6 +149,7 @@ export default function SignUp() {
                 id="standard-basic"
                 label="Email"
                 variant="standard"
+                value={email}
                 onChange={(e) => {
                   setEmail(e.target.value);
                 }}
@@ -184,10 +162,11 @@ export default function SignUp() {
               <TextField
                 fullWidth
                 id="standard-password-input"
-                label="Password"
+                label="Password (6+ characters)"
                 type="password"
                 autoComplete="current-password"
                 variant="standard"
+                value={password}
                 onChange={(e) => {
                   setPassword(e.target.value);
                 }}
@@ -207,8 +186,6 @@ export default function SignUp() {
                   textTransform: "none",
                   margin: "10px",
                 }}
-                component={RouterLink}
-                to="/"
                 onClick={saveData}
               >
                 Sign up
