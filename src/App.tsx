@@ -10,7 +10,6 @@ import About from './pages/About'
 import Notes from './pages/Notes';
 import { AnimatePresence } from "framer-motion";
 import { Routes } from 'react-router';
-import About from './pages/About';
 
 function App() {
   const location = useLocation();
