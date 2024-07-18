@@ -6,6 +6,7 @@ import Home from './pages/Home';
 import Account from './pages/Account';
 import SignUp from './pages/SignUp';
 import FullPageCalendar from './pages/FullPageCalendar'
+import About from './pages/About'
 import Notes from './pages/Notes';
 import { AnimatePresence } from "framer-motion";
 import { Routes } from 'react-router';
