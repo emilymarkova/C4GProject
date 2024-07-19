@@ -5,7 +5,8 @@ import "./SignUp.css";
 import NavBar from "../Components/NavBar";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
-import { Link as RouterLink, useNavigate } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 

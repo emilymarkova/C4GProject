@@ -16,6 +16,7 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import './FullCalendarCustom.css'; // Import the custom CSS
 import NavBar from '../Components/NavBar'; // Ensure the import path is correct
+import transition from '../transiton';
 
 interface Event {
   id: string;
@@ -175,4 +176,4 @@ const FullPageCalendar: React.FC = () => {
   );
 };
 
-export default FullPageCalendar;
+export default transition(FullPageCalendar);

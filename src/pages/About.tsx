@@ -1,9 +1,10 @@
 import AboutContent from "../Components/AboutContent";
 import Background from "../Components/Background";
 import NavBar from "../Components/NavBar";
+import transition from "../transiton";
 
 
-export default function About() {
+function About() {
   return (
     <div>
         <Background/>
@@ -12,3 +13,5 @@ export default function About() {
     </div>
   );
 }
+
+export default transition(About);
