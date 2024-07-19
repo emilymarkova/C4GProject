@@ -14,7 +14,7 @@ import ListItem from "@mui/material/ListItem";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import app from "../firebaseConfig";
-import transition from "../transition";
+import transition from "../transiton";
 import "firebase/auth";
 import "firebase/database";
 import Divider from "@mui/material/Divider";
