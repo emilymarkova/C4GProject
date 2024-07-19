@@ -9,7 +9,7 @@ import { Link as RouterLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import transition from "../transition";
+import transition from "../transiton";
 
 function Login() {
   const navigate = useNavigate();
