@@ -9,6 +9,7 @@ import { Link as RouterLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import transition from "../transition";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -165,3 +166,5 @@ export default function Login() {
     </Box>
   );
 }
+
+export default transition(Login);
