@@ -11,7 +11,7 @@ import { useState } from "react";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import transition from "../transition";
 
-export default function Login() {
+function Login() {
   const navigate = useNavigate();
   let [loginError, setLoginError] = useState<String>("");
   let [email, setEmail] = useState<string>("");
