@@ -106,7 +106,7 @@ const FullPageCalendar: React.FC = () => {
     <Container maxWidth={false} disableGutters>
       <NavBar />
       <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center" marginTop="70px" marginBottom="10px">
-        <Box width="90%" height="80vh">
+        <Box width="90%" height="100vh">
           <FullCalendar
             plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
             initialView="timeGridWeek"
