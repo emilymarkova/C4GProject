@@ -10,10 +10,13 @@ import {
   DialogTitle,
   TextField,
 } from '@mui/material';
+import Typography from "@mui/material/Typography";
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
 import './FullCalendarCustom.css'; // Import the custom CSS
 import NavBar from '../Components/NavBar'; // Ensure the import path is correct
 
@@ -24,6 +27,23 @@ interface Event {
 }
 
 const FullPageCalendar: React.FC = () => {
+  const convertDate = (date:any) => {
+    const dateObject = new Date(date); 
+    const newDate = dateObject.toLocaleString('en-US', {month: 'short', day: 'numeric', year: 'numeric'})
+    const time = dateObject.toLocaleTimeString('en-US', {hour: '2-digit', minute: '2-digit'});
+    return newDate + " - " + time;
+  }
+
+  const sortEvents = (array: any) => {
+    let newArray = array;
+    newArray.sort(function(a:any, b:any) {
+      return (a.date < b.date) ? -1 : ((a.date > b.date) ? 1 : 0);
+    });
+    //only get future events
+    let time = new Date().toISOString().slice(0,-5);
+    newArray = newArray.filter((event:any) => event.date > time);
+    return newArray;
+  }
   const [events, setEvents] = useState<Event[]>([
     { id: '1', title: 'Event 1', date: '2024-07-11T10:00:00' },
     { id: '2', title: 'Event 2', date: '2024-07-12T14:00:00' },
@@ -85,7 +105,7 @@ const FullPageCalendar: React.FC = () => {
   return (
     <Container maxWidth={false} disableGutters>
       <NavBar />
-      <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center" minHeight="100vh">
+      <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center" marginTop="70px" marginBottom="10px">
         <Box width="90%" height="80vh">
           <FullCalendar
             plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
@@ -171,6 +191,27 @@ const FullPageCalendar: React.FC = () => {
           </DialogActions>
         </Dialog>
       </Box>
+      <Box sx={{display:"flex", justifyContent:"center", width:"100%", margin:"0px"}} >
+      <Box sx={{ backgroundColor: "rgba(41, 97, 134)", minHeight:"100px", width: "90vw", padding:"5px", borderRadius:"15px",margin:"0px" }}>
+        <Typography className="overview" variant="h5">Upcoming Events Overview : </Typography>
+          <List
+      sx={{
+        width: '100%',
+            position: 'relative',
+        color:"black",
+        overflow: 'auto',
+        '& ul': { padding: 0 },
+      }}
+      subheader={<li />}
+    >
+          {sortEvents(events).map((event:any, index:any) => (
+          <ListItem key={index} sx={{display:"block"}}>
+              <Typography className="overview">{`${convertDate(event.date)} : ${event.title}`}</Typography>
+              </ListItem>
+        ))}
+        </List>
+        </Box>
+        </Box>
     </Container>
   );
 };

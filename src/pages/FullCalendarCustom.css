@@ -37,6 +37,10 @@ body {
   box-sizing: border-box; /* Ensure padding and border are included in the element's total width and height */
 }
 
+.overview {
+  font-family: 'Gaegu', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  color: #ffffff; 
+}
 .fc-day-today {
   background-color: transparent !important;
   color: inherit !important;
