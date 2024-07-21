@@ -1,5 +1,5 @@
 /* src/pages/FullCalendarCustom.css */
-
+@import url('https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&display=swap');
 /* Ensure the dates in the calendar are black */
 .fc .fc-daygrid-day-number, 
 .fc .fc-daygrid-event-dot,
@@ -37,10 +37,6 @@ body {
   box-sizing: border-box; /* Ensure padding and border are included in the element's total width and height */
 }
 
-.overview {
-  font-family: 'Gaegu', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  color: #ffffff; 
-}
 .fc-day-today {
   background-color: transparent !important;
   color: inherit !important;
