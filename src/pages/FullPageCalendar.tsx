@@ -19,6 +19,7 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import "./FullCalendarCustom.css"; // Import the custom CSS
 import NavBar from "../Components/NavBar"; // Ensure the import path is correct
+import transition from '../transiton';
 
 interface Event {
   id: string;
@@ -298,4 +299,4 @@ const FullPageCalendar: React.FC = () => {
   );
 };
 
-export default FullPageCalendar;
+export default transition(FullPageCalendar);

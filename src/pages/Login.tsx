@@ -5,11 +5,13 @@ import "./SignUp.css";
 import NavBar from "../Components/NavBar";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
-import { Link as RouterLink, useNavigate } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import transition from "../transiton";
 
-export default function Login() {
+function Login() {
   const navigate = useNavigate();
   let [loginError, setLoginError] = useState<String>("");
   let [email, setEmail] = useState<string>("");
@@ -164,3 +166,5 @@ export default function Login() {
     </Box>
   );
 }
+
+export default transition(Login);
