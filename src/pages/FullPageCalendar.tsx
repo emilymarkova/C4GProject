@@ -17,9 +17,9 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
-import "./FullCalendarCustom.css"; // Import the custom CSS
-import NavBar from "../Components/NavBar"; // Ensure the import path is correct
-import transition from "../transition"; // Ensure the import path is correct
+import "./FullCalendarCustom.css"; 
+import NavBar from "../Components/NavBar";
+import transition from '../transiton';
 
 interface Event {
   id: string;
