@@ -1,5 +1,5 @@
 /* src/pages/FullCalendarCustom.css */
-
+@import url('https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&display=swap');
 /* Ensure the dates in the calendar are black */
 .fc .fc-daygrid-day-number, 
 .fc .fc-daygrid-event-dot,

@@ -74,29 +74,33 @@ function Account() {
     const auth = getAuth();
 
     //update profile
-    if (auth.currentUser) {
-      const user = auth.currentUser;
-      try {
-        await verifyBeforeUpdateEmail(user, email);
-        await signOut(auth);
-        window.location.reload();
-        navigate("/");
-        alert(
-          "Check " +
-            email +
-            " for a verification email before signing in again."
-        );
-      } catch (error: any) {
-        const errorMessage = error.message;
-      }
-
+    if (email != originalEmail) {
+      if (auth.currentUser) {
+        const user = auth.currentUser;
+        try {
+          await verifyBeforeUpdateEmail(user, email);
+          await signOut(auth);
+          alert(
+            "Check " +
+              email +
+              " for a verification email before signing in again."
+          );
+          navigate("/");
+        } catch (error: any) {
+          const errorMessage = error.message;
+        }
+    }
       //update database
-      const db = getDatabase(app);
-      const userRef = ref(db, "users/" + user.uid);
-      set(userRef, {
-        firstName: firstName,
-        lastName: lastName,
-      });
+      const user = auth.currentUser;
+      if (user) {
+        const db = getDatabase(app);
+        const userRef = ref(db, "users/" + user.uid);
+        set(userRef, {
+          firstName: firstName,
+          lastName: lastName,
+        });
+      }
+      
     }
   };
 
