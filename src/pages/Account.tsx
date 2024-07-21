@@ -14,6 +14,7 @@ import ListItem from "@mui/material/ListItem";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import app from "../firebaseConfig";
+import transition from "../transiton";
 import "firebase/auth";
 import "firebase/database";
 import Divider from "@mui/material/Divider";
@@ -33,7 +34,7 @@ const style = {
   backgroundColor: "background.paper",
 };
 
-export default function Account() {
+function Account() {
   const [showPassword, setShowPassword] = React.useState(false);
   const navigate = useNavigate();
   let [originalEmail, setOriginalEmail] = useState<string>("");
@@ -309,3 +310,5 @@ export default function Account() {
     </Box>
   );
 }
+
+export default transition(Account);

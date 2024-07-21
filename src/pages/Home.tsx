@@ -3,10 +3,11 @@ import '../App.css';
 import Background from '../Components/Background';
 import HomeContent from '../Components/HomeContent';
 import NavBar from '../Components/NavBar';
+import transition from '../transiton';
 
 
 
-export default function Home() {
+function Home() {
   return ( 
     <>
     <style>
@@ -18,3 +19,5 @@ export default function Home() {
     </>
   )
 }
+
+export default transition(Home);
