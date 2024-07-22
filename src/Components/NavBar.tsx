@@ -264,9 +264,8 @@ function NavBar() {
                 <Tooltip title="Open settings">
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                     <Avatar
-                      alt="Remy Sharp"
                       sx={{ width: "35px", height: "35px" }}
-                      src="/static/images/avatar/2.jpg"
+                      src="../assets/anon.webp"
                     />
                   </IconButton>
                 </Tooltip>
