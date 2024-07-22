@@ -11,3 +11,8 @@
 .nav-button {
   color: "#B2DBD7",
 }
+
+.logo {
+  max-width: 50px;
+  max-height: 50spx;
+}
