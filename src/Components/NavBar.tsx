@@ -10,7 +10,7 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import AdbIcon from "@mui/icons-material/Adb";
+import Logo from "../assets/logo.png";
 import { Link as RouterLink } from "react-router-dom";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { signOut } from "firebase/auth";
@@ -105,19 +105,7 @@ function NavBar() {
                 justifyContent: "center",
               }}
             >
-              <AdbIcon
-                sx={{
-                  display: {
-                    xs: "none",
-                    sm: "none",
-                    md: "flex",
-                    lg: "flex",
-                    xl: "flex",
-                  },
-                  mr: 1,
-                }}
-              />
-
+              <img className="logo" src={Logo} alt="logo"/>
               <Typography
                 variant="h4"
                 noWrap
@@ -210,18 +198,7 @@ function NavBar() {
                 ))}
               </Menu>
             </Box>
-            <AdbIcon
-              sx={{
-                display: {
-                  xs: "flex",
-                  sm: "flex",
-                  md: "none",
-                  lg: "none",
-                  xl: "none",
-                },
-                mr: 1,
-              }}
-            />
+
             <Typography
               variant="h5"
               className="navBar"
