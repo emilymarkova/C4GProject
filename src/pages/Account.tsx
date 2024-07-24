@@ -154,9 +154,8 @@ function Account() {
         <Typography variant="h5">Account</Typography>
         <Box sx={{ display: "flex", alignItems: "center" }}>
           <Avatar
-            alt="Remy Sharp"
             sx={{ width: "60px", height: "60px", margin: "10px" }}
-            src="/static/images/avatar/2.jpg"
+            src="../assets/anon.webp"
           />
           <Box
             sx={{
